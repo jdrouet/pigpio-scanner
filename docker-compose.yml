@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  pigpio:
+    image: jdrouet/pigpio:latest
+    networks:
+      - sensor
+
+  receiver:
+    build: receiver
+    networks:
+      - sensor
+    environment:
+      PIGPIO_HOST: pigpio
+      PIGPIO_PORT: 8888
+      PIGPIO_PIN: 17
+      BAUD_RATE_MIN: 200
+      BAUD_RATE_MAX: 4000
+
+networks:
+  sensor: {}
